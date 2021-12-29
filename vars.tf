@@ -13,3 +13,16 @@ variable "ECS_AMIS" {
     eu-west-2 = "ami-0141564f07476504d"
   }
 }
+
+variable"PUBLIC_KEY" {
+  type    = string
+}
+
+variable "project_name" {
+  type = string
+}
+
+variable "instance_type" {
+  type    = string
+  default = "t2.micro"
+}
