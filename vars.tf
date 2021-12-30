@@ -40,7 +40,7 @@ variable "instance_type" {
 
 # myapp.tf
 variable "MYAPP_SERVICE_ENABLE" {
-  default = "0"
+  default = "1"
 }
 
 variable "MYAPP_VERSION" {

@@ -25,7 +25,8 @@ resource "aws_security_group" "ecs-securitygroup" {
   }
 
   tags = {
-    Name = "ecs"
+    Name        = "ecs"
+    ProjectName = var.project_name
   }
 }
 
@@ -49,7 +50,8 @@ resource "aws_security_group" "myapp-elb-securitygroup" {
   }
 
   tags = {
-    Name = "myapp-elb"
+    Name        = "myapp-elb"
+    ProjectName = var.project_name
   }
 }
 
@@ -58,6 +60,7 @@ resource "aws_security_group" "jenkins-securitygroup" {
   vpc_id      = aws_vpc.main.id
   name        = "jenkins-securitygroup"
   description = "SG allows SSH and all egress traffic"
+
   egress {
     from_port   = 0
     to_port     = 0
@@ -71,13 +74,16 @@ resource "aws_security_group" "jenkins-securitygroup" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
   ingress {
     from_port   = 8080
     to_port     = 8080
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
   tags = {
-    Name = "jenkins-securitygroup"
+    Name        = "jenkins-securitygroup"
+    ProjectName = var.project_name
   }
 }

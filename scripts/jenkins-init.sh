@@ -34,16 +34,16 @@ curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo tee \
 echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
   https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
   /etc/apt/sources.list.d/jenkins.list > /dev/null
-apt-get update
-apt-get install -y jenkins
+apt update
+apt install -y jenkins
 
 # install docker
-apt-get install -y unzip ca-certificates curl gnupg lbs-release
+apt install -y ca-certificates curl gnupg lbs-release
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-apt-get update
-apt-get install -y docker-ce docker-ce-cli containerd.io
+apt update
+apt install -y docker-ce docker-ce-cli containerd.io
 
 # enable Docker and add perms
 usermod -G docker jenkins
@@ -52,15 +52,17 @@ service docker start
 service jenkins restart
 
 # install AWS CLI
+apt install -y unzip
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 unzip awscliv2.zip
 ./aws/install
+apt install -y awscli
 
 # install Terraform
-apt-get update && apt-get install -y gnupg software-properties-common curl
+apt update && apt install -y gnupg software-properties-common curl
 curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add -
 apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-apt-get update && apt-get install terraform
+apt update && apt install terraform
 
 # clean up
-apt-get clean
+apt clean

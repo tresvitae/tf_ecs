@@ -27,6 +27,7 @@ resource "aws_autoscaling_group" "ecs-example-autoscaling" {
   launch_configuration = aws_launch_configuration.ecs-example-launchconfig.name
   min_size             = 2
   max_size             = 5
+  
   tag {
     key                 = "Name"
     value               = "ecs-ec2-container"
